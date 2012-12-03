@@ -1,15 +1,23 @@
 class Applicant
 	attr_accessor :id, :name
+	@joblist = []
+	@@applicant_count = 0
 
-	def initialize(id, name)
-		@id = id
+	def initialize(name)
+		@@applicant_count += 1
+		@id = @@applicant_count
 		@name = name
+		@joblist = []
 	end
 
-	def apply
+	def apply(job)
+		@joblist = @joblist.push(job)
 	end
 
 	def applied_jobs
+		@joblist.each do |jobs|
+			puts "Job id: #{jobs.id} \t Job title: #{jobs.title	}"		
+		end
 	end
 
 end
@@ -26,7 +34,7 @@ class Job
 
 	def initialize(title)
 		@@job_counter += 1
-		id = @@job_counter
+		@id = @@job_counter
 		@title = title
 		@@joblist = @@joblist.push([[id,title]])
 	end
@@ -44,11 +52,21 @@ end
 
 #create a new job
 job = Job.new("Junior Assistant Engineer")
-applicant = Applicant.new("")
+applicant = Applicant.new("RDM")
 applicant.apply(job)
-applicant.jobs
-job.applicants
+#job.applicants
 
-j2 = Job.new("developer")
+job2 = Job.new("developer")
+applicant.apply(job2)
+applicant.applied_jobs
 
 Job.show_jobs
+
+amit = Applicant.new("Amit s")
+amit.apply(job2)
+puts "amit ko job"
+amit.applied_jobs
+
+job3 = Job.new("bhada majhne")
+applicant.apply(job3)
+applicant.applied_jobs
