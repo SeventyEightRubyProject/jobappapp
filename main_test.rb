@@ -12,11 +12,13 @@ class Applicant
 
 	def apply(job)
 		@joblist = @joblist.push(job)
+		job.applicant_list.push(self)
 	end
 
 	def applied_jobs
+		puts "Job id: \t Job title: "	
 		@joblist.each do |jobs|
-			puts "Job id: #{jobs.id} \t Job title: #{jobs.title	}"		
+			puts "#{jobs.id} \t\t #{jobs.title}"		
 		end
 	end
 
@@ -24,9 +26,11 @@ end
 
 class Job
 	@@job_counter = 0
-	attr_accessor :id, :title
+	attr_accessor :id, :title, :applicant_list, :requestor
 	
 	@@joblist = []
+
+	
 
 	def self.show_jobs
 		puts @@joblist
@@ -36,11 +40,40 @@ class Job
 		@@job_counter += 1
 		@id = @@job_counter
 		@title = title
-		@@joblist = @@joblist.push([[id,title]])
+		@@joblist = @@joblist.push([id,title])
+		@applicant_list = []
+	end
+
+	def showapplicants
+		@applicant_list.each do |applicant|
+			puts applicant.name
+		end
+	end
+
+
+	def showrequester
+		puts "req by : "+requestor.name
 	end
 
 end
 
+
+class Requester
+	attr_accessor :id, :name, :requested_jobs
+
+	def initialize(id, name)
+		@id = id
+		@name = name
+		@requested_jobs = []
+	end
+
+	def create_job(job)
+		requested_jobs.push(job)
+		job.requestor=self
+	end
+
+
+end 
 #menu
 # puts
 # puts "********* MENU **********"
@@ -51,9 +84,14 @@ end
 # choice = gets
 
 #create a new job
+
 job = Job.new("Junior Assistant Engineer")
+re = Requester.new(1,"Barun")
+re.create_job(job)
 applicant = Applicant.new("RDM")
 applicant.apply(job)
+job.showrequester
+
 #job.applicants
 
 job2 = Job.new("developer")
@@ -70,3 +108,6 @@ amit.applied_jobs
 job3 = Job.new("bhada majhne")
 applicant.apply(job3)
 applicant.applied_jobs
+
+Job.show_jobs
+job2.showapplicants
