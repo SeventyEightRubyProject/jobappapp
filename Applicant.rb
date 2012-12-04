@@ -17,9 +17,14 @@ class Applicant
 	end
 
 	def applied_jobs
-		puts "Job id: \t Job title: \t requested by:"	
+		max_length = 20;
+		puts "Job id:\t\tJob title: \t\t requested by:"	
 		@joblist.each do |jobs|
-			puts "#{jobs.id} \t\t #{jobs.title}"		
+			max_length = 30;
+			# if(max_length < jo)
+				max_length -= jobs.title.length
+				# puts jobs.title.length
+			printf "%s \t\t%s %#{max_length}s\n", jobs.id, jobs.title, jobs.requestor.name		
 		end
 	end
 
