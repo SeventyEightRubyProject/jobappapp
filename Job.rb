@@ -1,22 +1,38 @@
+
 class Job
 	@@job_counter = 0
-	attr_accessor :id, :title
+	attr_accessor :id, :title, :applicant_list, :requestor
 	
 	@@joblist = []
 
+	
+
 	def self.show_jobs
-		puts @@joblist
+		puts "Job id: \t Job title: \t\t Requested by:"
+
+		@@joblist.each do |job|
+			puts "#{job.id} \t\t #{job.title} \t\t #{job.requestor.name}"
+		end
 	end
+
 	def initialize(title)
 		@@job_counter += 1
-		id = @@job_counter
+		@id = @@job_counter
 		@title = title
-		@@joblist = @@joblist.push([[id,title]])
+		@@joblist = @@joblist.push(self)
+		@applicant_list = []
+	end
+
+	def showapplicants
+			puts "Applicant List for #{self.title}"
+		@applicant_list.each do |applicant|
+			puts applicant.name
+		end
+	end
+
+
+	def showrequester
+		puts "req by : "+requestor.name
 	end
 
 end
-
-j1 = Job.new("Junior Assistant")
-j2 = Job.new("developer")
-
-Job.show_jobs
