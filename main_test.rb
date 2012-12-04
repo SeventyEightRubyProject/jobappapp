@@ -16,16 +16,16 @@ require 'requestor'
 #create a new job
 
 
-re = Requester.new(1,"Barun")
-req2 = Requester.new(2,"bhanu")
+cloud_factory = Requester.new(1,"Cloud Factory")
+sprout = Requester.new(2,"Sprout")
 
 job = Job.new("Junior Engineer")
-job2 = Job.new("developer")
+job2 = Job.new("Developer")
 job3 = Job.new("QA")
 
-re.create_job(job)
-re.create_job(job2)
-req2.create_job(job3)
+cloud_factory.create_job(job)
+cloud_factory.create_job(job2)
+sprout.create_job(job3)
 
 applicant = Applicant.new("RDM")
 amit = Applicant.new("Amit s")
@@ -59,3 +59,6 @@ ObjectSpace.garbage_collect
 #puts amit.name
 # puts"\nApplicants for job 2"
 job3.showapplicants
+cloud_factory.deletejob(job3)
+puts "All job lists"
+Job.show_jobs
