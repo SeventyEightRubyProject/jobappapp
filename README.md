@@ -1,4 +1,4 @@
-jobappapp
-=========
+Job Application
+=================
 
-a ruby project for job applications
+A ruby project for job applications.
